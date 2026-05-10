@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Dokumen Aatex 1</title>
+    <!-- Menggunakan Tailwind CSS untuk styling modern dan responsif -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Kustomisasi scrollbar agar lebih rapi */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        /* Animasi smooth untuk hover card */
+        .doc-card { transition: all 0.2s ease-in-out; }
+        .doc-card:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- ========================================================================= -->
+    <!-- BAGIAN PENGATURAN DATA DOKUMEN (UBAH NAMA & LINK DI SINI)                 -->
+    <!-- ========================================================================= -->
+    <script>
+        const DATA_DOKUMEN = [
+            {
+                kategori: "Input Tim Lapangan",
+                temaWarna: "blue", // Pilihan warna: blue, purple, emerald, red, orange
+                ikon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>`,
+                dokumen: [
+                    { nama: "Update Produksi Mesin & Orderan Naik (beam, waving, drawing)", link: "https://docs.google.com/spreadsheets/d/18McvxtvtJR0IOiDm1IY4gktwVsNOXmW7viK3pxODQXY/edit?gid=0#gid=0" },
+                    { nama: "Laporan Naik Beam & Kerusakan Mesin", link: "https://drive.google.com/drive/folders/1-Npr4ukAEYzB1ObmWRTYW-XC_gWys1bq?usp=drive_link" },
+                    { nama: "Pemakaian Sisir", link: "https://drive.google.com/drive/folders/1xziZHjOv5AMeUMKlrsqrb-ygtKIeYhgC?usp=drive_link" },
+                    { nama: "Sparepart (Masuk & Supply)", link: "https://drive.google.com/drive/folders/14qK4IvsAUO6rWpCl705vk0TtVQbmfZTu?usp=drive_link" },
+                    { nama: "ATK", link: "https://drive.google.com/drive/folders/1YXiTRBy4Oj1EI8uOCsjgIEP_KRxJqcTo?usp=drive_link" },
+                    { nama: "Catatan Belanja, Kas, dan SP", link: "https://drive.google.com/drive/folders/1S9pJxWZgmuGawLBWnGeisQtFlIaZ0qaa?usp=drive_link" },
+                    { nama: "Laporan Potong Kain", link: "https://drive.google.com/drive/folders/1H6fCH3CRAj25RaSjGFzuyQjatMawHg2U?usp=drive_link" }
+                ]
+            },
+            {
+                kategori: "Khusus Admin / Owner",
+                temaWarna: "purple",
+                ikon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>`,
+                dokumen: [
+                    { nama: "Master Data", link: "https://docs.google.com/spreadsheets/d/1ZKrnWIV6gN_8SKYX-9Cw8e9xo3KkOExCztmdcdfL85k/edit?usp=drive_link" },
+                    { nama: "Folder Laporan", link: "https://drive.google.com/drive/folders/151Xy1gC08Dsn4p6D6v8BlCjFI-oSq7gh?usp=drive_link" },
+                    { nama: "HPP Kain", link: "https://docs.google.com/spreadsheets/d/1hBDS_g2yus0XSScJ9ueDnJ9VMPy6a-H5vcloltDTqsc/edit?usp=drive_link" },
+                    { nama: "Bayaran Mingguan", link: "https://drive.google.com/drive/folders/1HxKvtF_Qp-13yV2AjDdK7prapEv_OZlp?usp=drive_link" },
+                    { nama: "Bayaran Bulanan", link: "https://drive.google.com/drive/folders/16zN75xkasORLOxUwKt9mvJeLGVaGfWLg?usp=drive_link" }
+                ]
+            },
+            {
+                kategori: "Laporan",
+                temaWarna: "emerald",
+                ikon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>`,
+                dokumen: [
+                    { nama: "Laporan Mingguan", link: "https://drive.google.com/drive/folders/1EwrBHASLBuGbDiDVJOmxhmhdPA_HXMss?usp=drive_link" },
+                    { nama: "Laporan Penjualan Kain Rinci", link: "https://drive.google.com/drive/folders/14wPYw2lPSrwXbB1_POrYGWFK1v-T0elZ?usp=drive_link" },
+                    { nama: "Laporan Penjualan Limbah Rinci", link: "https://drive.google.com/drive/folders/19PVvuKXuosI_dEarProMGH9LesBf6WzR?usp=drive_link" },
+                    { nama: "Laporan Piutang Konsumen", link: "https://drive.google.com/drive/folders/10FxovoED8wddvtxc4_8FXe4N5xh4p7se?usp=drive_link" },
+                    { nama: "Laporan Produksi Kain Harian", link: "https://drive.google.com/drive/folders/16tJESsE8oV1NRrsXxmzga_6MAor5TKBe?usp=drive_link" },
+                    { nama: "Laporan Produksi Harian Tiap Mesin Rinci", link: "https://drive.google.com/drive/folders/1-fOVQyh537BZ0Vc4yfvg2AcYVhPUH5iE?usp=drive_link" },
+                    { nama: "Laporan Stock Kain", link: "https://drive.google.com/drive/folders/1ByuJEVRFlmd_HIYmyMCokxfvQZYsuuCs?usp=drive_link" },
+                    { nama: "Laporan Penjualan Kain", link: "https://drive.google.com/drive/folders/17IxzQ1kIIftaA7skY8JPfpTN1aCV9EkE?usp=drive_link" },
+                    { nama: "Laporan Penjualan Limbah", link: "https://drive.google.com/drive/folders/1Cp3A5kT95TcNHA-kTDLWlcGa0T8n5tTu?usp=drive_link" },
+                    { nama: "SO & THR", link: "https://drive.google.com/drive/folders/1OJ8C7UkI_XpZRMhF9SQFCCDCNJeo-FZY?usp=drive_link" }
+                ]
+            }
+        ];
+    </script>
+    <!-- ========================================================================= -->
+
+    <!-- Header & Search Bar -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-6">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="p-1">
+                        <!-- Pastikan logo.webp ada di direktori yang sama, atau gunakan URL absolut -->
+                        <img src="logo.webp" alt="Logo Aatex" class="w-10 h-10 object-contain">
+                    </div>
+                    <div>
+                        <h1 class="text-xl md:text-2xl font-bold text-slate-900 leading-tight">Portal Dokumen Aatex 1</h1>
+                        <p class="text-sm text-slate-500">Pusat Data & Laporan Internal</p>
+                    </div>
+                </div>
+                <div class="relative w-full md:w-96">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </div>
+                    <input type="text" id="searchInput" class="block w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-xl leading-5 bg-slate-50 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors" placeholder="Cari nama dokumen...">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Konten Utama -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        <!-- Pesan Kosong -->
+        <div id="noResults" class="hidden text-center py-12">
+            <svg class="w-16 h-16 text-slate-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <h3 class="text-lg font-medium text-slate-900">Dokumen tidak ditemukan</h3>
+            <p class="text-slate-500 mt-1">Coba gunakan kata kunci pencarian yang lain.</p>
+        </div>
+
+        <!-- Container Dokumen Dinamis -->
+        <div id="documentContainer" class="space-y-10"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <p class="text-center text-sm text-slate-500">
+                &copy; <script>document.write(new Date().getFullYear())</script> Sistem Portal Dokumen Internal Aatex 1. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Script Render HTML dan Pencarian -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('documentContainer');
+            
+            // Konfigurasi class warna Tailwind berdasarkan tema
+            const colorClasses = {
+                blue: { badge: "bg-blue-100 text-blue-700", borderHover: "hover:border-blue-300", icon: "text-blue-500 group-hover:text-blue-600", textHover: "group-hover:text-blue-700" },
+                purple: { badge: "bg-purple-100 text-purple-700", borderHover: "hover:border-purple-300", icon: "text-purple-500 group-hover:text-purple-600", textHover: "group-hover:text-purple-700" },
+                emerald: { badge: "bg-emerald-100 text-emerald-700", borderHover: "hover:border-emerald-300", icon: "text-emerald-500 group-hover:text-emerald-600", textHover: "group-hover:text-emerald-700" },
+                red: { badge: "bg-red-100 text-red-700", borderHover: "hover:border-red-300", icon: "text-red-500 group-hover:text-red-600", textHover: "group-hover:text-red-700" },
+                orange: { badge: "bg-orange-100 text-orange-700", borderHover: "hover:border-orange-300", icon: "text-orange-500 group-hover:text-orange-600", textHover: "group-hover:text-orange-700" }
+            };
+
+            // 1. Render HTML secara dinamis dari DATA_DOKUMEN
+            DATA_DOKUMEN.forEach(kategoriData => {
+                const colors = colorClasses[kategoriData.temaWarna] || colorClasses.blue;
+                const jumlahDokumen = kategoriData.dokumen.length;
+
+                let sectionHTML = `
+                <section class="category-section" data-category="${kategoriData.kategori}">
+                    <div class="flex items-center gap-2 mb-4">
+                        <h2 class="text-xl font-bold text-slate-800 tracking-tight">${kategoriData.kategori}</h2>
+                        <span class="${colors.badge} text-xs font-semibold px-2.5 py-0.5 rounded-full item-count">${jumlahDokumen}</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                `;
+
+                kategoriData.dokumen.forEach(doc => {
+                    sectionHTML += `
+                        <a href="${doc.link}" target="_blank" class="doc-card block bg-white border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md ${colors.borderHover} group">
+                            <div class="flex items-start gap-3">
+                                <div class="mt-1 flex-shrink-0 ${colors.icon}">
+                                    ${kategoriData.ikon}
+                                </div>
+                                <div>
+                                    <h3 class="text-sm font-semibold text-slate-800 ${colors.textHover} leading-snug doc-title">${doc.nama}</h3>
+                                </div>
+                            </div>
+                        </a>
+                    `;
+                });
+
+                sectionHTML += `</div></section>`;
+                container.innerHTML += sectionHTML;
+            });
+
+            // 2. Logika Pencarian
+            const searchInput = document.getElementById('searchInput');
+            const categorySections = document.querySelectorAll('.category-section');
+            const noResultsMessage = document.getElementById('noResults');
+
+            searchInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                let totalVisibleItems = 0;
+
+                categorySections.forEach(section => {
+                    const cards = section.querySelectorAll('.doc-card');
+                    let visibleInThisSection = 0;
+
+                    cards.forEach(card => {
+                        const title = card.querySelector('.doc-title').textContent.toLowerCase();
+                        if (title.includes(searchTerm)) {
+                            card.style.display = 'block';
+                            visibleInThisSection++;
+                            totalVisibleItems++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+
+                    if (visibleInThisSection > 0) {
+                        section.style.display = 'block';
+                        section.querySelector('.item-count').textContent = visibleInThisSection;
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+
+                if (totalVisibleItems === 0) {
+                    noResultsMessage.classList.remove('hidden');
+                } else {
+                    noResultsMessage.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
