@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV AATEX — File Administrasi</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ════════════════════════════════════════
+       DESIGN TOKENS — DARK & LIGHT
+    ════════════════════════════════════════ */
+    :root {
+      --transition-theme: background 0.35s, color 0.35s, border-color 0.35s, box-shadow 0.35s;
+    }
+
+    [data-theme="dark"] {
+      --bg:           #0f1117;
+      --bg-2:         #161a24;
+      --surface:      #1c2032;
+      --surface-2:    #242840;
+      --surface-3:    #2c3150;
+      --gold:         #c9a96e;
+      --gold-light:   #e0c48e;
+      --gold-glow:    rgba(201, 169, 110, 0.18);
+      --text:         #e8eaf2;
+      --text-muted:   #7880a0;
+      --text-faint:   #454d6a;
+      --border:       rgba(201, 169, 110, 0.12);
+      --border-hover: rgba(201, 169, 110, 0.38);
+      --shadow:       0 8px 32px rgba(0,0,0,0.45);
+      --shadow-sm:    0 2px 12px rgba(0,0,0,0.3);
+    }
+
+    [data-theme="light"] {
+      --bg:           #f4f5f9;
+      --bg-2:         #eceef5;
+      --surface:      #ffffff;
+      --surface-2:    #f9f9fd;
+      --surface-3:    #eef0f8;
+      --gold:         #a0732c;
+      --gold-light:   #7a5520;
+      --gold-glow:    rgba(160, 115, 44, 0.1);
+      --text:         #1a1d2e;
+      --text-muted:   #6b7094;
+      --text-faint:   #b0b5cc;
+      --border:       rgba(160, 115, 44, 0.15);
+      --border-hover: rgba(160, 115, 44, 0.4);
+      --shadow:       0 8px 32px rgba(0,0,0,0.1);
+      --shadow-sm:    0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    /* ════════════════════════════════════════
+       RESET & BASE
+    ════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 32px 16px 80px;
+      transition: var(--transition-theme);
+    }
+
+    /* ════════════════════════════════════════
+       PAGE WRAPPER
+    ════════════════════════════════════════ */
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    /* ════════════════════════════════════════
+       TOP BAR (theme toggle)
+    ════════════════════════════════════════ */
+    .topbar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 28px;
+    }
+
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 6px 14px 6px 10px;
+      cursor: pointer;
+      transition: var(--transition-theme), transform 0.15s;
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--border-hover);
+      color: var(--text);
+      transform: scale(1.03);
+    }
+
+    .theme-toggle__track {
+      width: 36px;
+      height: 20px;
+      background: var(--surface-3);
+      border-radius: 100px;
+      position: relative;
+      transition: background 0.3s;
+      flex-shrink: 0;
+    }
+
+    [data-theme="light"] .theme-toggle__track {
+      background: var(--gold);
+    }
+
+    .theme-toggle__thumb {
+      width: 14px;
+      height: 14px;
+      background: var(--text-muted);
+      border-radius: 50%;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), background 0.3s;
+    }
+
+    [data-theme="light"] .theme-toggle__thumb {
+      transform: translateX(16px);
+      background: #fff;
+    }
+
+    .theme-toggle__label { user-select: none; }
+
+    /* ════════════════════════════════════════
+       HEADER
+    ════════════════════════════════════════ */
+    .header {
+      text-align: center;
+      padding: 12px 0 52px;
+    }
+
+    .header__logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+      background: var(--gold-glow);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      font-size: 28px;
+      margin-bottom: 20px;
+      transition: var(--transition-theme);
+    }
+
+    .header__title {
+      font-size: clamp(32px, 8vw, 52px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .header__sub {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ════════════════════════════════════════
+       SEARCH BAR
+    ════════════════════════════════════════ */
+    .search-wrap {
+      position: relative;
+      margin-bottom: 40px;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+      font-style: normal;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 13px 16px 13px 44px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      outline: none;
+      transition: var(--transition-theme), border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .search-input::placeholder { color: var(--text-faint); }
+
+    .search-input:focus {
+      border-color: var(--border-hover);
+      box-shadow: 0 0 0 3px var(--gold-glow);
+    }
+
+    /* ════════════════════════════════════════
+       ACCORDION SECTION
+    ════════════════════════════════════════ */
+    .accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .acc-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: var(--transition-theme), border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .acc-item.is-open {
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Trigger button */
+    .acc-trigger {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      color: var(--text);
+      text-align: left;
+      transition: background 0.15s;
+    }
+
+    .acc-trigger:hover { background: var(--surface-2); }
+
+    .acc-trigger__icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--gold-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .acc-trigger__text {
+      flex: 1;
+    }
+
+    .acc-trigger__title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      display: block;
+    }
+
+    .acc-trigger__count {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .acc-trigger__arrow {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--surface-3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s, transform 0.3s cubic-bezier(.34,1.1,.64,1);
+    }
+
+    .acc-item.is-open .acc-trigger__arrow {
+      transform: rotate(180deg);
+      background: var(--gold-glow);
+    }
+
+    .acc-trigger__arrow svg {
+      width: 12px;
+      height: 12px;
+      stroke: var(--text-muted);
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Collapsible panel */
+    .acc-panel {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.32s cubic-bezier(.4,0,.2,1);
+    }
+
+    .acc-item.is-open .acc-panel {
+      grid-template-rows: 1fr;
+    }
+
+    .acc-panel__inner {
+      overflow: hidden;
+    }
+
+    .acc-panel__content {
+      padding: 0 16px 16px;
+    }
+
+    /* ════════════════════════════════════════
+       MENU GRID (inside accordion)
+    ════════════════════════════════════════ */
+    .menu {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 8px;
+    }
+
+    .menu li.is-hidden { display: none; }
+
+    .menu a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      background: var(--bg-2);
+      border: 1px solid transparent;
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.4;
+      transition: var(--transition-theme), background 0.18s, border-color 0.18s, transform 0.15s, box-shadow 0.15s, color 0.15s;
+    }
+
+    .menu a:hover {
+      background: var(--surface-3);
+      border-color: var(--border-hover);
+      color: var(--gold);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .menu a:active { transform: translateY(0); }
+
+    .menu a .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0.45;
+      flex-shrink: 0;
+      transition: opacity 0.18s, transform 0.18s;
+    }
+
+    .menu a:hover .dot {
+      opacity: 1;
+      transform: scale(1.4);
+    }
+
+    /* Empty search state */
+    .no-results {
+      text-align: center;
+      padding: 32px 0;
+      color: var(--text-muted);
+      font-size: 13px;
+      display: none;
+    }
+
+    /* ════════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════════ */
+    .footer {
+      text-align: center;
+      margin-top: 48px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--text-faint);
+      text-transform: uppercase;
+    }
+
+    /* ════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════ */
+    @media (max-width: 480px) {
+      .menu { grid-template-columns: 1fr; }
+      .acc-trigger { padding: 15px 16px; }
+    }
+  </style>
+</head>
+
+<body>
+<div class="page">
+
+
+  <!-- ══════════════════════
+       TOP BAR
+  ══════════════════════ -->
+  <div class="topbar">
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">
+      <div class="theme-toggle__track">
+        <div class="theme-toggle__thumb"></div>
+      </div>
+      <span class="theme-toggle__label" id="themeLabel">Dark Mode</span>
+    </button>
+  </div>
+
+
+  <!-- ══════════════════════
+       HEADER
+  ══════════════════════ -->
+  <header class="header">
+    <div class="header__logo">🏭</div>
+    <h1 class="header__title">CV. AATEX</h1>
+    <p class="header__sub">File Administrasi Internal</p>
+  </header>
+
+
+  <!-- ══════════════════════
+       SEARCH
+  ══════════════════════ -->
+  <div class="search-wrap">
+    <i class="search-icon">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+    </i>
+    <input
+      class="search-input"
+      type="text"
+      id="searchInput"
+      placeholder="Cari dokumen atau laporan…"
+      oninput="handleSearch(this.value)"
+    />
+  </div>
+
+  <p class="no-results" id="noResults">Tidak ada dokumen yang cocok.</p>
+
+
+  <!-- ══════════════════════
+       ACCORDION SECTIONS
+  ══════════════════════ -->
+  <div class="accordion" id="accordion">
+
+
+    <!-- ─────────────────────────────
+         SECTION 1 — INPUT TIM LAPANGAN
+    ───────────────────────────────── -->
+    <div class="acc-item is-open" data-section>
+
+      <button class="acc-trigger" onclick="toggleSection(this)">
+        <div class="acc-trigger__icon">📋</div>
+        <div class="acc-trigger__text">
+          <span class="acc-trigger__title">Input Tim Lapangan</span>
+          <span class="acc-trigger__count">7 dokumen</span>
+        </div>
+        <div class="acc-trigger__arrow">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </button>
+
+      <div class="acc-panel">
+        <div class="acc-panel__inner">
+          <div class="acc-panel__content">
+            <ul class="menu">
+
+              <li><a href="https://docs.google.com/spreadsheets/d/14egaApUVEoWXry0yrLTJa1lenz2mLZVEbXPMgCIzHxo/edit?usp=drive_link" target="_blank"><span class="dot"></span>Update Produksi Mesin &amp; Orderan Naik</a></li>
+
+              <li><a href="https://docs.google.com/spreadsheets/d/1pJpEzqMXvBWviRET2QTOtcxoOqSKoCV9Xmvq0YFdpAM/edit?usp=drive_link" target="_blank"><span class="dot"></span>Pemakaian Sisir</a></li>
+
+              <li><a href="https://docs.google.com/spreadsheets/d/1yuPNApHSLWWZ29Me5DQFO2mU2wPt-vAe2ZyyN7X-WfU/edit?usp=drive_link" target="_blank"><span class="dot"></span>Sparepart (Masuk &amp; Supply)</a></li>
+
+              <li><a href="https://docs.google.com/spreadsheets/d/1lcSn_Spd3GSTgxVl8-RNftEq03gEQ8wuivS_La30LYs/edit?usp=drive_link" target="_blank"><span class="dot"></span>ATK</a></li>
+
+              <li><a href="https://docs.google.com/spreadsheets/d/1knZK-JWIZ2OxPhbk79QDbPZjEMwQ9V_mN1JB2Gqyqu4/edit?usp=drive_link" target="_blank"><span class="dot"></span>Catatan Belanja, Kas, dan SP</a></li>
+
+              <li><a href="https://docs.google.com/spreadsheets/d/1g2votk3eE0-ZBq9gLcBHkWwOhE5b8vaWUtm61N1J2AM/edit?usp=drive_link" target="_blank"><span class="dot"></span>Laporan Produksi Kain Harian Grade B &amp; BS</a></li>
+
+              <li><a href="https://drive.google.com/drive/folders/18nCOj1Cxf0KTy0J1Z-94sjwOYg5GOUFG?usp=drive_link" target="_blank"><span class="dot"></span>Laporan Potong Kain</a></li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /SECTION 1 -->
+
+
+    <!-- ─────────────────────────────
+         SECTION 2 — ADMIN / OWNER
+    ───────────────────────────────── -->
+    <div class="acc-item" data-section>
+
+      <button class="acc-trigger" onclick="toggleSection(this)">
+        <div class="acc-trigger__icon">🔐</div>
+        <div class="acc-trigger__text">
+          <span class="acc-trigger__title">Khusus Admin / Owner</span>
+          <span class="acc-trigger__count">5 dokumen</span>
+        </div>
+        <div class="acc-trigger__arrow">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </button>
+
+      <div class="acc-panel">
+        <div class="acc-panel__inner">
+          <div class="acc-panel__content">
+            <ul class="menu">
+
+              <li><a href="https://docs.google.com/spreadsheets/d/1S7kwsut5xPdzrz3C-kzBe9sPQjJTWoWxI9fTCWglNPc/edit?usp=drive_link" target="_blank"><span class="dot"></span>Master Data</a></li>
+
+              <li><a href="https://drive.google.com/drive/folders/13ROOxgn2zM1tA5UpmQqopCR8JHXiRDbw?usp=drive_link" target="_blank"><span class="dot"></span>Folder Laporan</a></li>
+
+              <li><a href="https://docs.google.com/spreadsheets/d/1eQKAVzec_-cWPh5vWe8QtTcbERGWXgb20KNmXhdT52E/edit?usp=drive_link" target="_blank"><span class="dot"></span>HPP Kain</a></li>
+
+              <li><a href="" target="_blank"><span class="dot"></span>Bayaran Mingguan</a></li>
+
+              <li><a href="" target="_blank"><span class="dot"></span>Bayaran Bulanan</a></li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /SECTION 2 -->
+
+
+    <!-- ─────────────────────────────
+         SECTION 3 — LAPORAN
+    ───────────────────────────────── -->
+    <div class="acc-item" data-section>
+
+      <button class="acc-trigger" onclick="toggleSection(this)">
+        <div class="acc-trigger__icon">📊</div>
+        <div class="acc-trigger__text">
+          <span class="acc-trigger__title">Laporan</span>
+          <span class="acc-trigger__count">10 dokumen</span>
+        </div>
+        <div class="acc-trigger__arrow">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </button>
+
+      <div class="acc-panel">
+        <div class="acc-panel__inner">
+          <div class="acc-panel__content">
+            <ul class="menu">
+
+              <li><a href="https://drive.google.com/drive/folders/1Sv-9JfXQKIVV00MCe_yoN1hvrYD2teg2?usp=drive_link" target="_blank"><span class="dot"></span>Laporan Mingguan</a></li>
+
+              <li><a href="https://drive.google.com/drive/folders/1un4qbhpzztFDxTbYgOCWaXdoPXyrDFdY?usp=drive_link" target="_blank"><span class="dot"></span>Laporan Penjualan Kain Rinci</a></li>
+
+              <li><a href="https://drive.google.com/drive/folders/1Lr5mHEa4MRHsmKuBI_iSqWSBvnSvuBWo?usp=drive_link" target="_blank"><span class="dot"></span>Laporan Penjualan Limbah Rinci</a></li>
+
+              <li><a href="https://drive.google.com/drive/folders/1prUgehBanAJV99qqjoR214pnCOmqo4iZ?usp=drive_link" target="_blank"><span class="dot"></span>Laporan Piutang Konsumen</a></li>
+
+              <li><a href="https://drive.google.com/drive/folders/1MqpNi4yAaycgBIsngNmWjC2R0YtNJRD0?usp=drive_link" target="_blank"><span class="dot"></span>Laporan Produksi Harian</a></li>
+
+              <li><a href="https://drive.google.com/drive/folders/1ojKPYhO9JPjuaA_TTINWYLfE1KxOxrgn?usp=drive_link" target="_blank"><span class="dot"></span>Laporan Produksi Harian Tiap Mesin</a></li>
+
+              <li><a href="https://drive.google.com/drive/folders/16QVQ4H0NJJhqVzytU5NL2aclLZiz7VBs?usp=drive_link" target="_blank"><span class="dot"></span>Laporan Stock Kain</a></li>
+
+              <li><a href="https://drive.google.com/drive/folders/1Q26QGaJCWmmWhAEfypOEwxpzVq2vG6oR?usp=drive_link" target="_blank"><span class="dot"></span>Laporan Penjualan Kain</a></li>
+
+              <li><a href="https://drive.google.com/drive/folders/1Zu_yeEn9iIk9Vh6t28oGH419NmYlGhOQ?usp=drive_link" target="_blank"><span class="dot"></span>Laporan Penjualan Limbah</a></li>
+
+              <li><a href="" target="_blank"><span class="dot"></span>SO &amp; THR</a></li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /SECTION 3 -->
+
+
+  </div><!-- /accordion -->
+
+
+  <!-- ══════════════════════
+       FOOTER
+  ══════════════════════ -->
+  <footer class="footer">
+    CV. AATEX &nbsp;·&nbsp; Internal Use Only
+  </footer>
+
+
+</div><!-- /page -->
+
+
+<!-- ════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════ -->
+<script>
+
+  /* ── THEME TOGGLE ── */
+  function toggleTheme() {
+    const html  = document.documentElement;
+    const label = document.getElementById('themeLabel');
+    const isDark = html.getAttribute('data-theme') === 'dark';
+
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    label.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+  }
+
+
+  /* ── ACCORDION TOGGLE ── */
+  function toggleSection(triggerBtn) {
+    const item = triggerBtn.closest('.acc-item');
+    item.classList.toggle('is-open');
+  }
+
+
+  /* ── SEARCH / FILTER ── */
+  function handleSearch(query) {
+    const q         = query.trim().toLowerCase();
+    const sections  = document.querySelectorAll('[data-section]');
+    const noResults = document.getElementById('noResults');
+
+    let totalVisible = 0;
+
+    sections.forEach(section => {
+      const items   = section.querySelectorAll('.menu li');
+      const panel   = section.querySelector('.acc-panel');
+      let   secHits = 0;
+
+      items.forEach(li => {
+        const text    = li.textContent.toLowerCase();
+        const matches = q === '' || text.includes(q);
+        li.classList.toggle('is-hidden', !matches);
+        if (matches) secHits++;
+      });
+
+      totalVisible += secHits;
+
+      // Auto-open sections that have matches; close empty ones during search
+      if (q !== '') {
+        section.classList.toggle('is-open', secHits > 0);
+      }
+    });
+
+    noResults.style.display = (q !== '' && totalVisible === 0) ? 'block' : 'none';
+  }
+
+</script>
+
+</body>
+</html>
