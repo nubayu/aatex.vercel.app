@@ -1,33 +1,120 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Dokumen Aatex 1</title>
-    <!-- Menggunakan Tailwind CSS untuk styling modern dan responsif -->
+    <title>AATEX-1 COMMAND CENTER</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts untuk nuansa Game/Militer -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Teko:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Rajdhani', 'sans-serif'],
+                        display: ['Teko', 'sans-serif'],
+                    },
+                    colors: {
+                        pubg: {
+                            orange: '#F26822',
+                            yellow: '#F2A900',
+                            dark: '#121212',
+                            panel: '#1A1C1E',
+                            border: '#333333',
+                            green: '#4A5D23'
+                        }
+                    },
+                    backgroundImage: {
+                        'grunge': "url('https://www.transparenttextures.com/patterns/black-scales.png')",
+                    }
+                }
+            }
+        }
+    </script>
+    
     <style>
-        /* Kustomisasi scrollbar agar lebih rapi */
+        /* Base Styling & Scrollbar */
+        body {
+            background-color: #0f1011;
+            background-image: 
+                linear-gradient(rgba(15, 16, 17, 0.9), rgba(15, 16, 17, 0.95)),
+                url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+        }
+        
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        /* Animasi smooth untuk hover card */
-        .doc-card { transition: all 0.2s ease-in-out; }
-        .doc-card:hover { transform: translateY(-2px); }
+        ::-webkit-scrollbar-track { background: #121212; border-left: 1px solid #333; }
+        ::-webkit-scrollbar-thumb { background: #F26822; }
+        ::-webkit-scrollbar-thumb:hover { background: #F2A900; }
+
+        /* Scanline Effect (Efek layar game retro/taktikal) */
+        .scanlines {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.3;
+        }
+
+        /* HUD Card Styling (Bingkai kotak bidikan) */
+        .hud-card {
+            position: relative;
+            background: linear-gradient(135deg, rgba(26,28,30,0.9) 0%, rgba(18,18,18,0.95) 100%);
+            border: 1px solid #333;
+            transition: all 0.2s ease-out;
+            clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+        }
+        
+        .hud-card::before, .hud-card::after {
+            content: ''; position: absolute; width: 10px; height: 10px;
+            border: 2px solid transparent; transition: all 0.3s;
+        }
+        .hud-card::before { top: 0; left: 0; }
+        .hud-card::after { bottom: 0; right: 0; }
+
+        .hud-card:hover {
+            transform: scale(1.02);
+            border-color: #F26822;
+            box-shadow: inset 0 0 20px rgba(242, 104, 34, 0.1), 0 0 15px rgba(242, 104, 34, 0.3);
+        }
+
+        .hud-card:hover::before { border-top-color: #F2A900; border-left-color: #F2A900; }
+        .hud-card:hover::after { border-bottom-color: #F2A900; border-right-color: #F2A900; }
+
+        /* Glitch text effect on hover for header */
+        .glitch-hover:hover {
+            animation: glitch-skew 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+            color: #F2A900;
+        }
+        @keyframes glitch-skew {
+            0% { transform: skew(0deg); }
+            20% { transform: skew(-10deg); }
+            40% { transform: skew(10deg); }
+            60% { transform: skew(-5deg); }
+            80% { transform: skew(5deg); }
+            100% { transform: skew(0deg); }
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+<body class="text-gray-300 font-sans antialiased min-h-screen flex flex-col relative selection:bg-pubg-orange selection:text-white">
+    <div class="scanlines"></div>
 
     <!-- ========================================================================= -->
-    <!-- BAGIAN PENGATURAN DATA DOKUMEN (UBAH NAMA & LINK DI SINI)                 -->
+    <!-- DATA DOKUMEN (TIDAK ADA YANG DIRUBAH PADA DATANYA)                          -->
     <!-- ========================================================================= -->
     <script>
         const DATA_DOKUMEN = [
             {
                 kategori: "Input Tim Lapangan",
-                temaWarna: "blue", // Pilihan warna: blue, purple, emerald, red, orange
-                ikon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>`,
+                temaWarna: "blue", 
+                ikon: `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M3 10h18M5 6h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z M12 10v4M9 14h6"></path></svg>`,
                 dokumen: [
                     { nama: "Update Produksi Mesin & Orderan Naik (beam, waving, drawing)", link: "https://docs.google.com/spreadsheets/d/1tLbXb3WvINthb5P6k6BUVR6o9DT0lbToRvbK-ruPYX4/edit?usp=drive_link" },
                     { nama: "Laporan Naik Beam & Kerusakan Mesin", link: "https://drive.google.com/drive/folders/1KOOxgTC6klGVUaLBvezZxE_d9WSPPYcU?usp=drive_link" },
@@ -41,7 +128,7 @@
             {
                 kategori: "Khusus Admin / Owner",
                 temaWarna: "purple",
-                ikon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>`,
+                ikon: `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M12 11c1.657 0 3-1.343 3-3S13.657 5 12 5 9 6.343 9 8s1.343 3 3 3z M5 20v-1a5 5 0 0110 0v1 M16 11h5 M18 9v4"></path></svg>`,
                 dokumen: [
                     { nama: "Master Data", link: "https://docs.google.com/spreadsheets/d/1IM9Eh1bBsvpjRd4rkEeH6oudvEehPca1sIkF8ZkoN-E/edit?usp=drive_link" },
                     { nama: "Folder Laporan", link: "https://drive.google.com/drive/folders/1YKIbil2mmw_rdzh8SQ3ASAbUP8sbhevk?usp=drive_link" },
@@ -53,7 +140,7 @@
             {
                 kategori: "Laporan",
                 temaWarna: "emerald",
-                ikon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>`,
+                ikon: `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z M4 4h16v16H4z"></path></svg>`,
                 dokumen: [
                     { nama: "Laporan Mingguan", link: "https://drive.google.com/drive/folders/1UByES71z7Y35a3aJ-kifqtaY1bjCMisH?usp=drive_link" },
                     { nama: "Laporan Penjualan Kain Rinci", link: "https://drive.google.com/drive/folders/1zQ0Yjn0qIrFGOsEiTiV9383bXqAM1hDu?usp=drive_link" },
@@ -71,91 +158,155 @@
     </script>
     <!-- ========================================================================= -->
 
-    <!-- Header & Search Bar -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-6">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <div class="flex items-center gap-3">
-                    <div class="p-1">
-                        <!-- Pastikan logo.webp ada di direktori yang sama, atau gunakan URL absolut -->
-                        <img src="logo.webp" alt="Logo Aatex" class="w-10 h-10 object-contain">
+    <!-- Header HUD -->
+    <header class="bg-pubg-dark/90 backdrop-blur-sm border-b-2 border-pubg-orange shadow-[0_4px_20px_rgba(242,104,34,0.15)] sticky top-0 z-50">
+        <!-- Top accent line -->
+        <div class="h-1 w-full bg-gradient-to-r from-pubg-yellow via-pubg-orange to-pubg-yellow"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+                
+                <!-- Logo & Title -->
+                <div class="flex items-center gap-4">
+                    <div class="relative flex items-center justify-center w-14 h-14 bg-zinc-800 border-2 border-pubg-orange transform rotate-45 overflow-hidden group">
+                        <!-- Pseudo logo PUBG Style (Ganti src="logo.webp" bila perlu) -->
+                        <div class="transform -rotate-45 font-display text-2xl font-bold text-pubg-yellow group-hover:scale-110 transition-transform">ATX</div>
                     </div>
                     <div>
-                        <h1 class="text-xl md:text-2xl font-bold text-slate-900 leading-tight">Portal Dokumen Aatex 1</h1>
-                        <p class="text-sm text-slate-500">Pusat Data & Laporan Internal</p>
+                        <h1 class="text-3xl md:text-4xl font-display font-bold text-white tracking-wider uppercase glitch-hover" style="text-shadow: 2px 2px 0px #000;">
+                            Aatex-1 <span class="text-pubg-orange">Intel</span>
+                        </h1>
+                        <div class="flex items-center gap-2 text-xs font-bold tracking-[0.2em] text-pubg-yellow uppercase">
+                            <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
+                            Tactical Database Live
+                        </div>
                     </div>
                 </div>
-                <div class="relative w-full md:w-96">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+
+                <!-- Search Bar (HUD Input) -->
+                <div class="relative w-full md:w-[400px]">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <!-- Crosshair Icon -->
+                        <svg class="w-5 h-5 text-pubg-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v4m0 8v4m-8-8h4m8 0h4m-6-6L9.5 9.5m5 5L14.5 14.5"></path><circle cx="12" cy="12" r="8" stroke-width="1.5" stroke-dasharray="2 2"></circle></svg>
                     </div>
-                    <input type="text" id="searchInput" class="block w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-xl leading-5 bg-slate-50 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors" placeholder="Cari nama dokumen...">
+                    <input type="text" id="searchInput" 
+                        class="block w-full pl-12 pr-4 py-3 bg-zinc-900/80 border border-pubg-border text-white placeholder-gray-500 font-sans font-medium uppercase tracking-wider focus:outline-none focus:border-pubg-yellow focus:ring-1 focus:ring-pubg-yellow transition-all clip-path-tactical-input" 
+                        placeholder="SCAN TARGET DOCUMENT..."
+                        style="clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);">
+                    
+                    <!-- Decorative right corner -->
+                    <div class="absolute right-0 bottom-0 w-3 h-3 border-b-2 border-r-2 border-pubg-yellow"></div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Konten Utama -->
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
-        <!-- Pesan Kosong -->
-        <div id="noResults" class="hidden text-center py-12">
-            <svg class="w-16 h-16 text-slate-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            <h3 class="text-lg font-medium text-slate-900">Dokumen tidak ditemukan</h3>
-            <p class="text-slate-500 mt-1">Coba gunakan kata kunci pencarian yang lain.</p>
+    <!-- Konten Utama (BATTLEGROUND) -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full relative z-10">
+        
+        <!-- Pesan Kosong (Target Missed) -->
+        <div id="noResults" class="hidden text-center py-20">
+            <div class="inline-block p-4 border-2 border-red-600/50 rounded-full bg-red-600/10 mb-4 animate-pulse">
+                <svg class="w-12 h-12 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <h3 class="text-2xl font-display font-bold text-red-500 uppercase tracking-widest">Target Not Found</h3>
+            <p class="text-gray-400 font-medium uppercase tracking-wider mt-2">Adjust your scopes and try searching again.</p>
         </div>
 
         <!-- Container Dokumen Dinamis -->
-        <div id="documentContainer" class="space-y-10"></div>
+        <div id="documentContainer" class="space-y-12"></div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-slate-200 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <p class="text-center text-sm text-slate-500">
-                &copy; <script>document.write(new Date().getFullYear())</script> Sistem Portal Dokumen Internal Aatex 1. All rights reserved.
+    <footer class="bg-pubg-dark border-t border-pubg-border mt-auto relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between">
+            <p class="text-sm font-bold text-gray-500 tracking-widest uppercase">
+                &copy; <script>document.write(new Date().getFullYear())</script> AATEX-1 COMMAND CENTER. 
             </p>
+            <div class="flex items-center gap-2 mt-4 md:mt-0 text-pubg-orange text-sm font-display tracking-widest">
+                <span>SERVER: ONLINE</span>
+                <span class="w-1 h-4 bg-pubg-orange animate-ping"></span>
+            </div>
         </div>
     </footer>
 
-    <!-- Script Render HTML dan Pencarian -->
+    <!-- Script Render HTML dan Pencarian (Logika tidak diubah, hanya pemetaan warnanya saja) -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const container = document.getElementById('documentContainer');
             
-            // Konfigurasi class warna Tailwind berdasarkan tema
+            // Konfigurasi class warna ditranslasi ke tema PUBG
+            // Biru -> Oranye Taktikal, Ungu -> Kuning Airdrop, Emerald -> Hijau Militer
             const colorClasses = {
-                blue: { badge: "bg-blue-100 text-blue-700", borderHover: "hover:border-blue-300", icon: "text-blue-500 group-hover:text-blue-600", textHover: "group-hover:text-blue-700" },
-                purple: { badge: "bg-purple-100 text-purple-700", borderHover: "hover:border-purple-300", icon: "text-purple-500 group-hover:text-purple-600", textHover: "group-hover:text-purple-700" },
-                emerald: { badge: "bg-emerald-100 text-emerald-700", borderHover: "hover:border-emerald-300", icon: "text-emerald-500 group-hover:text-emerald-600", textHover: "group-hover:text-emerald-700" },
-                red: { badge: "bg-red-100 text-red-700", borderHover: "hover:border-red-300", icon: "text-red-500 group-hover:text-red-600", textHover: "group-hover:text-red-700" },
-                orange: { badge: "bg-orange-100 text-orange-700", borderHover: "hover:border-orange-300", icon: "text-orange-500 group-hover:text-orange-600", textHover: "group-hover:text-orange-700" }
+                blue: { 
+                    badge: "bg-pubg-orange/20 text-pubg-orange border-pubg-orange", 
+                    iconBg: "bg-pubg-orange/10",
+                    iconColor: "text-pubg-orange group-hover:text-white", 
+                    textHover: "group-hover:text-pubg-orange" 
+                },
+                purple: { 
+                    badge: "bg-pubg-yellow/20 text-pubg-yellow border-pubg-yellow", 
+                    iconBg: "bg-pubg-yellow/10",
+                    iconColor: "text-pubg-yellow group-hover:text-white", 
+                    textHover: "group-hover:text-pubg-yellow" 
+                },
+                emerald: { 
+                    badge: "bg-pubg-green/30 text-green-400 border-pubg-green", 
+                    iconBg: "bg-pubg-green/20",
+                    iconColor: "text-green-500 group-hover:text-white", 
+                    textHover: "group-hover:text-green-400" 
+                },
+                red: { 
+                    badge: "bg-red-500/20 text-red-500 border-red-500", 
+                    iconBg: "bg-red-500/10",
+                    iconColor: "text-red-500 group-hover:text-white", 
+                    textHover: "group-hover:text-red-500" 
+                },
+                orange: { 
+                    badge: "bg-gray-500/20 text-gray-400 border-gray-500", 
+                    iconBg: "bg-gray-500/10",
+                    iconColor: "text-gray-400 group-hover:text-white", 
+                    textHover: "group-hover:text-gray-300" 
+                }
             };
 
-            // 1. Render HTML secara dinamis dari DATA_DOKUMEN
+            // 1. Render HTML secara dinamis
             DATA_DOKUMEN.forEach(kategoriData => {
                 const colors = colorClasses[kategoriData.temaWarna] || colorClasses.blue;
                 const jumlahDokumen = kategoriData.dokumen.length;
 
                 let sectionHTML = `
                 <section class="category-section" data-category="${kategoriData.kategori}">
-                    <div class="flex items-center gap-2 mb-4">
-                        <h2 class="text-xl font-bold text-slate-800 tracking-tight">${kategoriData.kategori}</h2>
-                        <span class="${colors.badge} text-xs font-semibold px-2.5 py-0.5 rounded-full item-count">${jumlahDokumen}</span>
+                    <div class="flex items-center gap-4 mb-6 border-b border-pubg-border pb-2 relative">
+                        <div class="absolute -bottom-[1px] left-0 w-24 h-[2px] bg-pubg-orange"></div>
+                        <h2 class="text-3xl font-display font-bold text-white tracking-widest uppercase">${kategoriData.kategori}</h2>
+                        <span class="border ${colors.badge} text-sm font-bold px-3 py-1 font-display tracking-widest flex items-center gap-1">
+                            SQUAD <span class="text-white ml-1">[ ${jumlahDokumen} ]</span>
+                        </span>
                     </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 `;
 
                 kategoriData.dokumen.forEach(doc => {
                     sectionHTML += `
-                        <a href="${doc.link}" target="_blank" class="doc-card block bg-white border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md ${colors.borderHover} group">
-                            <div class="flex items-start gap-3">
-                                <div class="mt-1 flex-shrink-0 ${colors.icon}">
+                        <a href="${doc.link}" target="_blank" class="hud-card group block p-5">
+                            <div class="flex items-start gap-4 h-full">
+                                <div class="mt-0.5 flex-shrink-0 p-2 border border-pubg-border ${colors.iconBg} ${colors.iconColor} transition-colors duration-300 transform group-hover:rotate-12 group-hover:bg-pubg-orange">
                                     ${kategoriData.ikon}
                                 </div>
-                                <div>
-                                    <h3 class="text-sm font-semibold text-slate-800 ${colors.textHover} leading-snug doc-title">${doc.nama}</h3>
+                                <div class="flex flex-col justify-center h-full">
+                                    <h3 class="text-base font-semibold text-gray-200 ${colors.textHover} uppercase tracking-wider leading-tight doc-title transition-colors">
+                                        ${doc.nama}
+                                    </h3>
+                                    <div class="mt-2 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <span class="h-[1px] w-4 bg-pubg-orange"></span>
+                                        <span class="text-[10px] font-display text-pubg-orange tracking-[0.2em]">ACCESS DATA</span>
+                                    </div>
                                 </div>
                             </div>
+                            
+                            <!-- Tactical HUD details -->
+                            <div class="absolute top-2 right-2 text-[8px] font-display text-gray-600 tracking-widest">ID: ${Math.floor(Math.random() * 9000) + 1000}</div>
                         </a>
                     `;
                 });
@@ -174,7 +325,7 @@
                 let totalVisibleItems = 0;
 
                 categorySections.forEach(section => {
-                    const cards = section.querySelectorAll('.doc-card');
+                    const cards = section.querySelectorAll('.hud-card');
                     let visibleInThisSection = 0;
 
                     cards.forEach(card => {
@@ -190,7 +341,8 @@
 
                     if (visibleInThisSection > 0) {
                         section.style.display = 'block';
-                        section.querySelector('.item-count').textContent = visibleInThisSection;
+                        // Update badge counter
+                        section.querySelector('span.text-white').textContent = `[ ${visibleInThisSection} ]`;
                     } else {
                         section.style.display = 'none';
                     }
