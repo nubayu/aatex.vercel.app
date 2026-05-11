@@ -1,56 +1,59 @@
 <!DOCTYPE html>
-<html lang="id" data-theme="dark">
+<html lang="id" data-theme="imperial">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CV AATEX — File Administrasi</title>
 
+  <!-- Google Fonts: Nuansa Abad Pertengahan / Klasik -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=MedievalSharp&display=swap" rel="stylesheet" />
 
   <style>
     /* ════════════════════════════════════════
-       DESIGN TOKENS — DARK & LIGHT
+       DESIGN TOKENS — IMPERIAL & DARK AGE (AoE2 Vibe)
     ════════════════════════════════════════ */
     :root {
-      --transition-theme: background 0.35s, color 0.35s, border-color 0.35s, box-shadow 0.35s;
+      --transition-theme: all 0.4s ease-in-out;
     }
 
-    [data-theme="dark"] {
-      --bg:           #0f1117;
-      --bg-2:         #161a24;
-      --surface:      #1c2032;
-      --surface-2:    #242840;
-      --surface-3:    #2c3150;
-      --gold:         #c9a96e;
-      --gold-light:   #e0c48e;
-      --gold-glow:    rgba(201, 169, 110, 0.18);
-      --text:         #e8eaf2;
-      --text-muted:   #7880a0;
-      --text-faint:   #454d6a;
-      --border:       rgba(201, 169, 110, 0.12);
-      --border-hover: rgba(201, 169, 110, 0.38);
-      --shadow:       0 8px 32px rgba(0,0,0,0.45);
-      --shadow-sm:    0 2px 12px rgba(0,0,0,0.3);
+    /* IMPERIAL AGE (Terang / Perkamen & Kayu) */
+    [data-theme="imperial"] {
+      --bg-color: #2c1a0f;
+      --bg-pattern: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+      --surface-color: #ebd5b3;
+      --surface-pattern: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+      --surface-hover: #fcf1d9;
+      --border-main: #a67c00;
+      --border-light: #d4af37;
+      --text-main: #3e2712;
+      --text-muted: #6b4c2a;
+      --btn-bg: linear-gradient(to bottom, #9b1c1c, #5c0a0a);
+      --btn-bg-hover: linear-gradient(to bottom, #b92b2b, #7a0f0f);
+      --btn-text: #ffd700;
+      --shadow-heavy: inset 0 0 15px rgba(0,0,0,0.6), 0 8px 20px rgba(0,0,0,0.7);
+      --shadow-panel: inset 0 0 20px rgba(139, 69, 19, 0.3), 0 4px 10px rgba(0,0,0,0.5);
+      --accent: #8b0000;
     }
 
-    [data-theme="light"] {
-      --bg:           #f4f5f9;
-      --bg-2:         #eceef5;
-      --surface:      #ffffff;
-      --surface-2:    #f9f9fd;
-      --surface-3:    #eef0f8;
-      --gold:         #a0732c;
-      --gold-light:   #7a5520;
-      --gold-glow:    rgba(160, 115, 44, 0.1);
-      --text:         #1a1d2e;
-      --text-muted:   #6b7094;
-      --text-faint:   #b0b5cc;
-      --border:       rgba(160, 115, 44, 0.15);
-      --border-hover: rgba(160, 115, 44, 0.4);
-      --shadow:       0 8px 32px rgba(0,0,0,0.1);
-      --shadow-sm:    0 2px 12px rgba(0,0,0,0.06);
+    /* DARK AGE (Gelap / Batu & Besi) */
+    [data-theme="dark-age"] {
+      --bg-color: #0a0a0a;
+      --bg-pattern: url('https://www.transparenttextures.com/patterns/black-scales.png');
+      --surface-color: #1f2022;
+      --surface-pattern: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
+      --surface-hover: #2a2c2f;
+      --border-main: #4a4a4a;
+      --border-light: #7a7a7a;
+      --text-main: #d3c4a9;
+      --text-muted: #8c8577;
+      --btn-bg: linear-gradient(to bottom, #2d3748, #1a202c);
+      --btn-bg-hover: linear-gradient(to bottom, #4a5568, #2d3748);
+      --btn-text: #e2e8f0;
+      --shadow-heavy: inset 0 0 15px rgba(0,0,0,0.8), 0 8px 20px rgba(0,0,0,0.9);
+      --shadow-panel: inset 0 0 20px rgba(0, 0, 0, 0.6), 0 4px 10px rgba(0,0,0,0.7);
+      --accent: #4a5568;
     }
 
     /* ════════════════════════════════════════
@@ -59,126 +62,132 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Poppins', sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      font-family: 'Cinzel', serif;
+      background-color: var(--bg-color);
+      background-image: var(--bg-pattern);
+      color: var(--text-main);
       min-height: 100vh;
-      padding: 32px 16px 80px;
+      padding: 20px 16px 80px;
       transition: var(--transition-theme);
     }
 
     /* ════════════════════════════════════════
-       PAGE WRAPPER
+       PAGE WRAPPER (Frame Utama bergaya UI Game)
     ════════════════════════════════════════ */
     .page {
-      max-width: 760px;
+      max-width: 800px;
       margin: 0 auto;
+      background-color: var(--surface-color);
+      background-image: var(--surface-pattern);
+      border: 4px solid var(--border-main);
+      border-radius: 4px;
+      padding: 30px 40px;
+      box-shadow: var(--shadow-panel);
+      position: relative;
+      transition: var(--transition-theme);
     }
 
+    /* Elemen Sudut Frame (Ornamen Klasik) */
+    .page::before, .page::after {
+      content: ''; position: absolute; width: 20px; height: 20px;
+      border: 3px solid var(--border-light); transition: var(--transition-theme);
+    }
+    .page::before { top: 4px; left: 4px; border-right: none; border-bottom: none; }
+    .page::after { bottom: 4px; right: 4px; border-left: none; border-top: none; }
+
     /* ════════════════════════════════════════
-       TOP BAR (theme toggle)
+       TOP BAR (Age Toggle)
     ════════════════════════════════════════ */
     .topbar {
       display: flex;
       justify-content: flex-end;
-      margin-bottom: 28px;
+      margin-bottom: 20px;
     }
 
     .theme-toggle {
       display: flex;
       align-items: center;
-      gap: 8px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      padding: 6px 14px 6px 10px;
+      gap: 10px;
+      background: var(--btn-bg);
+      border: 2px solid var(--border-light);
+      padding: 8px 16px;
       cursor: pointer;
-      transition: var(--transition-theme), transform 0.15s;
-      font-family: 'Poppins', sans-serif;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text-muted);
+      transition: var(--transition-theme);
+      font-family: 'MedievalSharp', cursive;
+      font-size: 14px;
+      color: var(--btn-text);
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 4px 6px rgba(0,0,0,0.3);
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     .theme-toggle:hover {
-      border-color: var(--border-hover);
-      color: var(--text);
-      transform: scale(1.03);
+      background: var(--btn-bg-hover);
+      transform: translateY(-2px);
     }
 
-    .theme-toggle__track {
-      width: 36px;
-      height: 20px;
-      background: var(--surface-3);
-      border-radius: 100px;
-      position: relative;
-      transition: background 0.3s;
-      flex-shrink: 0;
+    .theme-toggle__icon {
+      font-size: 18px;
     }
-
-    [data-theme="light"] .theme-toggle__track {
-      background: var(--gold);
-    }
-
-    .theme-toggle__thumb {
-      width: 14px;
-      height: 14px;
-      background: var(--text-muted);
-      border-radius: 50%;
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), background 0.3s;
-    }
-
-    [data-theme="light"] .theme-toggle__thumb {
-      transform: translateX(16px);
-      background: #fff;
-    }
-
-    .theme-toggle__label { user-select: none; }
 
     /* ════════════════════════════════════════
        HEADER
     ════════════════════════════════════════ */
     .header {
       text-align: center;
-      padding: 12px 0 52px;
+      padding: 10px 0 40px;
+      position: relative;
+    }
+
+    /* Garis Ornamen Bawah Header */
+    .header::after {
+      content: '';
+      display: block;
+      width: 60%;
+      height: 3px;
+      background: var(--border-main);
+      margin: 20px auto 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
     }
 
     .header__logo {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 64px;
-      height: 64px;
-      background: var(--gold-glow);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      font-size: 28px;
-      margin-bottom: 20px;
+      width: 70px;
+      height: 70px;
+      background: var(--btn-bg);
+      border: 3px solid var(--border-light);
+      border-radius: 50%;
+      margin-bottom: 15px;
+      box-shadow: var(--shadow-heavy);
+      color: var(--btn-text);
       transition: var(--transition-theme);
     }
 
+    .header__logo svg { width: 36px; height: 36px; fill: currentColor; }
+
     .header__title {
-      font-size: clamp(32px, 8vw, 52px);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--gold);
+      font-family: 'MedievalSharp', cursive;
+      font-size: clamp(36px, 8vw, 56px);
+      font-weight: 400;
+      letter-spacing: 2px;
+      color: var(--text-main);
+      text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
       line-height: 1;
-      margin-bottom: 8px;
+      margin-bottom: 5px;
     }
 
     .header__sub {
-      font-size: 13px;
-      font-weight: 500;
+      font-size: 14px;
+      font-weight: 700;
       color: var(--text-muted);
-      letter-spacing: 0.06em;
+      letter-spacing: 3px;
       text-transform: uppercase;
     }
 
     /* ════════════════════════════════════════
-       SEARCH BAR
+       SEARCH BAR (Gulungan Pencarian)
     ════════════════════════════════════════ */
     .search-wrap {
       position: relative;
@@ -192,120 +201,125 @@
       transform: translateY(-50%);
       color: var(--text-muted);
       pointer-events: none;
-      font-style: normal;
     }
 
     .search-input {
       width: 100%;
-      padding: 13px 16px 13px 44px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 14px;
-      color: var(--text);
+      padding: 14px 16px 14px 48px;
+      background: rgba(0,0,0,0.05);
+      border: 2px solid var(--border-main);
+      font-family: 'Cinzel', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
       outline: none;
-      transition: var(--transition-theme), border-color 0.2s, box-shadow 0.2s;
+      transition: var(--transition-theme);
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
     }
 
-    .search-input::placeholder { color: var(--text-faint); }
+    .search-input::placeholder { color: var(--text-muted); font-weight: 500; }
 
     .search-input:focus {
-      border-color: var(--border-hover);
-      box-shadow: 0 0 0 3px var(--gold-glow);
+      border-color: var(--border-light);
+      background: rgba(255,255,255,0.1);
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.2), 0 0 10px var(--border-light);
     }
 
     /* ════════════════════════════════════════
-       ACCORDION SECTION
+       ACCORDION SECTION (Papan Menu Klasik)
     ════════════════════════════════════════ */
     .accordion {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 16px;
       margin-bottom: 16px;
     }
 
     .acc-item {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-      transition: var(--transition-theme), border-color 0.2s, box-shadow 0.2s;
+      border: 2px solid var(--border-main);
+      background: rgba(0,0,0,0.03);
+      transition: var(--transition-theme);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
 
     .acc-item.is-open {
-      border-color: var(--border-hover);
-      box-shadow: var(--shadow-sm);
+      border-color: var(--border-light);
+      box-shadow: var(--shadow-panel);
     }
 
-    /* Trigger button */
+    /* Trigger button (Tombol Menu) */
     .acc-trigger {
       width: 100%;
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 18px 20px;
-      background: none;
+      gap: 16px;
+      padding: 14px 20px;
+      background: var(--btn-bg);
       border: none;
+      border-bottom: 2px solid #000;
       cursor: pointer;
-      font-family: 'Poppins', sans-serif;
-      color: var(--text);
+      font-family: 'MedievalSharp', cursive;
+      color: var(--btn-text);
       text-align: left;
-      transition: background 0.15s;
+      transition: var(--transition-theme);
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
     }
 
-    .acc-trigger:hover { background: var(--surface-2); }
+    .acc-trigger:hover { 
+      background: var(--btn-bg-hover); 
+    }
 
     .acc-trigger__icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: var(--gold-glow);
+      width: 42px;
+      height: 42px;
+      border: 2px solid var(--border-light);
+      background: rgba(0,0,0,0.3);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
       flex-shrink: 0;
+      color: var(--btn-text);
     }
+    
+    .acc-trigger__icon svg { width: 24px; height: 24px; fill: currentColor; }
 
     .acc-trigger__text {
       flex: 1;
     }
 
     .acc-trigger__title {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text);
+      font-size: 18px;
+      letter-spacing: 1px;
+      color: var(--btn-text);
       display: block;
+      text-shadow: 1px 1px 2px #000;
     }
 
     .acc-trigger__count {
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--text-muted);
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--border-light);
     }
 
     .acc-trigger__arrow {
       width: 28px;
       height: 28px;
-      border-radius: 50%;
-      background: var(--surface-3);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      transition: background 0.2s, transform 0.3s cubic-bezier(.34,1.1,.64,1);
+      transition: transform 0.3s ease;
     }
 
     .acc-item.is-open .acc-trigger__arrow {
       transform: rotate(180deg);
-      background: var(--gold-glow);
     }
 
     .acc-trigger__arrow svg {
-      width: 12px;
-      height: 12px;
-      stroke: var(--text-muted);
+      width: 20px;
+      height: 20px;
+      stroke: var(--btn-text);
       fill: none;
       stroke-width: 2.5;
       stroke-linecap: round;
@@ -316,7 +330,7 @@
     .acc-panel {
       display: grid;
       grid-template-rows: 0fr;
-      transition: grid-template-rows 0.32s cubic-bezier(.4,0,.2,1);
+      transition: grid-template-rows 0.3s ease;
     }
 
     .acc-item.is-open .acc-panel {
@@ -328,17 +342,18 @@
     }
 
     .acc-panel__content {
-      padding: 0 16px 16px;
+      padding: 20px;
+      border-top: 2px solid var(--border-main);
     }
 
     /* ════════════════════════════════════════
-       MENU GRID (inside accordion)
+       MENU GRID (Daftar Dokumen)
     ════════════════════════════════════════ */
     .menu {
       list-style: none;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 8px;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
     }
 
     .menu li.is-hidden { display: none; }
@@ -346,50 +361,50 @@
     .menu a {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 12px 14px;
-      background: var(--bg-2);
-      border: 1px solid transparent;
-      border-radius: 10px;
+      gap: 12px;
+      padding: 12px 16px;
+      background: transparent;
+      border: 1px solid var(--border-main);
       text-decoration: none;
-      color: var(--text);
-      font-size: 13px;
-      font-weight: 500;
+      color: var(--text-main);
+      font-size: 14px;
+      font-weight: 700;
       line-height: 1.4;
-      transition: var(--transition-theme), background 0.18s, border-color 0.18s, transform 0.15s, box-shadow 0.15s, color 0.15s;
+      transition: var(--transition-theme);
+      position: relative;
+      overflow: hidden;
     }
 
+    /* Efek hover ala batu/kayu yang tertekan */
     .menu a:hover {
-      background: var(--surface-3);
-      border-color: var(--border-hover);
-      color: var(--gold);
-      transform: translateY(-1px);
-      box-shadow: var(--shadow-sm);
+      background: var(--surface-hover);
+      border-color: var(--border-light);
+      color: var(--accent);
+      transform: translateX(4px);
+      box-shadow: inset 4px 0 0 var(--accent);
     }
-
-    .menu a:active { transform: translateY(0); }
 
     .menu a .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--gold);
-      opacity: 0.45;
+      width: 12px;
+      height: 12px;
+      background: var(--border-main);
+      transform: rotate(45deg); /* Membuat bentuk diamond khas RTS kuno */
       flex-shrink: 0;
-      transition: opacity 0.18s, transform 0.18s;
+      transition: var(--transition-theme);
     }
 
     .menu a:hover .dot {
-      opacity: 1;
-      transform: scale(1.4);
+      background: var(--accent);
+      transform: rotate(45deg) scale(1.2);
     }
 
     /* Empty search state */
     .no-results {
       text-align: center;
-      padding: 32px 0;
-      color: var(--text-muted);
-      font-size: 13px;
+      padding: 40px 0;
+      color: var(--accent);
+      font-family: 'MedievalSharp', cursive;
+      font-size: 20px;
       display: none;
     }
 
@@ -398,20 +413,24 @@
     ════════════════════════════════════════ */
     .footer {
       text-align: center;
-      margin-top: 48px;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      color: var(--text-faint);
+      margin-top: 50px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--text-muted);
       text-transform: uppercase;
+      border-top: 1px solid var(--border-main);
+      padding-top: 20px;
     }
 
     /* ════════════════════════════════════════
        RESPONSIVE
     ════════════════════════════════════════ */
-    @media (max-width: 480px) {
+    @media (max-width: 600px) {
+      .page { padding: 20px 15px; border-width: 2px; }
       .menu { grid-template-columns: 1fr; }
-      .acc-trigger { padding: 15px 16px; }
+      .header__title { font-size: 32px; }
+      .acc-trigger { padding: 12px 15px; }
     }
   </style>
 </head>
@@ -419,16 +438,13 @@
 <body>
 <div class="page">
 
-
   <!-- ══════════════════════
-       TOP BAR
+       TOP BAR (Age Selection)
   ══════════════════════ -->
   <div class="topbar">
-    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">
-      <div class="theme-toggle__track">
-        <div class="theme-toggle__thumb"></div>
-      </div>
-      <span class="theme-toggle__label" id="themeLabel">Dark Mode</span>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle Age">
+      <span class="theme-toggle__icon" id="themeIcon">🏰</span>
+      <span class="theme-toggle__label" id="themeLabel">Imperial Age</span>
     </button>
   </div>
 
@@ -437,18 +453,22 @@
        HEADER
   ══════════════════════ -->
   <header class="header">
-    <div class="header__logo">🏭</div>
+    <div class="header__logo">
+      <!-- Ikon Kastil / Bangunan -->
+      <svg viewBox="0 0 24 24"><path d="M2,22 L22,22 L22,20 L2,20 L2,22 Z M18,8 L18,20 L6,20 L6,8 L4,8 L4,6 L6,6 L6,4 L8,4 L8,6 L10,6 L10,4 L14,4 L14,6 L16,6 L16,4 L18,4 L18,6 L20,6 L20,8 L18,8 Z M8,12 L16,12 L16,10 L8,10 L8,12 Z M8,16 L16,16 L16,14 L8,14 L8,16 Z"/></svg>
+    </div>
     <h1 class="header__title">CV. AATEX</h1>
     <p class="header__sub">File Administrasi Internal</p>
   </header>
 
 
   <!-- ══════════════════════
-       SEARCH
+       SEARCH (Scroll Box)
   ══════════════════════ -->
   <div class="search-wrap">
     <i class="search-icon">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Ikon Pedang / Kaca Pembesar -->
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
       </svg>
     </i>
@@ -461,7 +481,7 @@
     />
   </div>
 
-  <p class="no-results" id="noResults">Tidak ada dokumen yang cocok.</p>
+  <p class="no-results" id="noResults">Arsip tidak ditemukan di perpustakaan.</p>
 
 
   <!-- ══════════════════════
@@ -476,10 +496,13 @@
     <div class="acc-item is-open" data-section>
 
       <button class="acc-trigger" onclick="toggleSection(this)">
-        <div class="acc-trigger__icon">📋</div>
+        <div class="acc-trigger__icon">
+          <!-- Ikon Kapak / Pasukan -->
+          <svg viewBox="0 0 24 24"><path d="M3.7,18.9L1.6,21l1.4,1.4l2.1-2.1L3.7,18.9z M22.6,3.6c-0.8-0.8-2.1-0.8-2.8,0L13.1,10.3l-1.9-0.5l-3.3,3.3l1.8,1.8l-4,4 l1.4,1.4l4-4l1.8,1.8l3.3-3.3l-0.5-1.9l6.7-6.7C23.4,5.7,23.4,4.4,22.6,3.6z M15.1,12.7l0.5,1.9l-1.9,1.9l-1.6-1.6l-1.6-1.6 l1.9-1.9l1.9,0.5L20.5,5l1.4,1.4L15.1,12.7z"/></svg>
+        </div>
         <div class="acc-trigger__text">
           <span class="acc-trigger__title">Input Tim Lapangan</span>
-          <span class="acc-trigger__count">7 dokumen</span>
+          <span class="acc-trigger__count">7 Dokumen Tempur</span>
         </div>
         <div class="acc-trigger__arrow">
           <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
@@ -490,21 +513,13 @@
         <div class="acc-panel__inner">
           <div class="acc-panel__content">
             <ul class="menu">
-
               <li><a href="https://docs.google.com/spreadsheets/d/1kz24LiqdO2HqvDX_JaNVDhD2Kebyo5-86qanulNPVTs/edit?usp=drive_link" target="_blank"><span class="dot"></span>Update Produksi Mesin &amp; Orderan Naik</a></li>
-
               <li><a href="https://docs.google.com/spreadsheets/d/1Hx2jhvioD_hY9rdRg1OXssMNuGGywfxphc6JirA0d9k/edit?usp=drive_link" target="_blank"><span class="dot"></span>Pemakaian Sisir</a></li>
-
               <li><a href="https://docs.google.com/spreadsheets/d/1mXRVARlHl4egRCvg4XMDc7mIo4ZoEISumDNrtlcaLhQ/edit?usp=drive_link" target="_blank"><span class="dot"></span>Sparepart (Masuk &amp; Supply)</a></li>
-
               <li><a href="https://docs.google.com/spreadsheets/d/1niLusiKw3ewCE40ezFDTJNDQsEJShxvPaGTqiF4AbLw/edit?usp=drive_link" target="_blank"><span class="dot"></span>ATK</a></li>
-
               <li><a href="https://docs.google.com/spreadsheets/d/1zwLJiq5x8LyocAZNCXwGBDz0PKO7_d5aLa3mO5ky5e4/edit?usp=drive_link" target="_blank"><span class="dot"></span>Catatan Belanja, Kas, dan SP</a></li>
-
               <li><a href="https://docs.google.com/spreadsheets/d/1Wx0eXoFkHERcO4Xx6IoTM01tdkzA5-jM7kZWIJYTQ-M/edit?usp=drive_link" target="_blank"><span class="dot"></span>Laporan Produksi Kain Harian Grade B &amp; BS</a></li>
-
               <li><a href="https://drive.google.com/drive/folders/1NKJPYIhqKGgLgFX-pxLMAdnAOaQWQeED?usp=drive_link" target="_blank"><span class="dot"></span>Laporan Potong Kain</a></li>
-
             </ul>
           </div>
         </div>
@@ -519,10 +534,13 @@
     <div class="acc-item" data-section>
 
       <button class="acc-trigger" onclick="toggleSection(this)">
-        <div class="acc-trigger__icon">🔐</div>
+        <div class="acc-trigger__icon">
+          <!-- Ikon Mahkota -->
+          <svg viewBox="0 0 24 24"><path d="M2,19 L22,19 L22,21 L2,21 L2,19 Z M4,6 L6,17 L18,17 L20,6 L16,10 L12,4 L8,10 L4,6 Z M12,8 L13.5,11 L16,10.5 L14.5,15 L9.5,15 L8,10.5 L10.5,11 L12,8 Z"/></svg>
+        </div>
         <div class="acc-trigger__text">
           <span class="acc-trigger__title">Khusus Admin / Owner</span>
-          <span class="acc-trigger__count">5 dokumen</span>
+          <span class="acc-trigger__count">5 Dokumen Rahasia</span>
         </div>
         <div class="acc-trigger__arrow">
           <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
@@ -533,17 +551,11 @@
         <div class="acc-panel__inner">
           <div class="acc-panel__content">
             <ul class="menu">
-
               <li><a href="https://docs.google.com/spreadsheets/d/1ZBsl-IS1QQxaBrxPmI8lV-mFYX1TSxBT2SVVxf6OL04/edit?usp=drive_link" target="_blank"><span class="dot"></span>Master Data</a></li>
-
               <li><a href="https://drive.google.com/drive/folders/1oK6-MvLpunRQ11DPXwc9xfCzgDV7nKB4?usp=drive_link" target="_blank"><span class="dot"></span>Folder Laporan</a></li>
-
               <li><a href="https://docs.google.com/spreadsheets/d/10F8J6aX6gBn1nWJptICeVnFsX8JJGLR_noXywWum9CI/edit?usp=drive_link" target="_blank"><span class="dot"></span>HPP Kain</a></li>
-
               <li><a href="https://drive.google.com/drive/folders/17D8fyslz98H9AAxwf83CC3SttP2nPYfO?usp=drive_link" target="_blank"><span class="dot"></span>Bayaran Mingguan</a></li>
-
               <li><a href="https://drive.google.com/drive/folders/1iaWS6ZM-f_rjQGWNgxLYK0A45YNkkHFP?usp=drive_link" target="_blank"><span class="dot"></span>Bayaran Bulanan</a></li>
-
             </ul>
           </div>
         </div>
@@ -558,10 +570,13 @@
     <div class="acc-item" data-section>
 
       <button class="acc-trigger" onclick="toggleSection(this)">
-        <div class="acc-trigger__icon">📊</div>
+        <div class="acc-trigger__icon">
+          <!-- Ikon Gulungan Perkamen -->
+          <svg viewBox="0 0 24 24"><path d="M14,2 L20,8 L20,20 C20,21.1 19.1,22 18,22 L6,22 C4.9,22 4,21.1 4,20 L4,4 C4,2.9 4.9,2 6,2 L14,2 Z M13,3.5 L6,3.5 C5.7,3.5 5.5,3.7 5.5,4 L5.5,20 C5.5,20.3 5.7,20.5 6,20.5 L18,20.5 C18.3,20.5 18.5,20.3 18.5,20 L18.5,9 L13,9 L13,3.5 Z M8,12 L16,12 L16,13.5 L8,13.5 L8,12 Z M8,16 L14,16 L14,17.5 L8,17.5 L8,16 Z M14.5,3.5 L14.5,7.5 L18.5,7.5 L14.5,3.5 Z"/></svg>
+        </div>
         <div class="acc-trigger__text">
           <span class="acc-trigger__title">Laporan</span>
-          <span class="acc-trigger__count">10 dokumen</span>
+          <span class="acc-trigger__count">10 Arsip Kerajaan</span>
         </div>
         <div class="acc-trigger__arrow">
           <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
@@ -572,27 +587,16 @@
         <div class="acc-panel__inner">
           <div class="acc-panel__content">
             <ul class="menu">
-
               <li><a href="https://drive.google.com/drive/folders/14HIcoNAmg7FjA51Dn8YD1QR4lIS0LwgH?usp=drive_link" target="_blank"><span class="dot"></span>Laporan Mingguan</a></li>
-
               <li><a href="https://drive.google.com/drive/folders/1KBSyiHWnQGh-btpn3mfgnk6GrH9xUe9K?usp=drive_link" target="_blank"><span class="dot"></span>Laporan Penjualan Kain Rinci</a></li>
-
               <li><a href="https://drive.google.com/drive/folders/19UfE7eXr3nih6_S9g2NW_m1RlEAYNncX?usp=drive_link" target="_blank"><span class="dot"></span>Laporan Penjualan Limbah Rinci</a></li>
-
               <li><a href="https://drive.google.com/drive/folders/1j-sXYoXBd0hYfJaUb1XDWFqo3dNocFJm?usp=drive_link" target="_blank"><span class="dot"></span>Laporan Piutang Konsumen</a></li>
-
               <li><a href="https://drive.google.com/drive/folders/1aitTple24ssN99dy0vl-gg5Z3LtETxCs?usp=drive_link" target="_blank"><span class="dot"></span>Laporan Produksi Harian</a></li>
-
               <li><a href="https://drive.google.com/drive/folders/1TXBbCgniPecCyTSna3Vj0fspt2beQb3D?usp=drive_link" target="_blank"><span class="dot"></span>Laporan Produksi Harian Tiap Mesin</a></li>
-
               <li><a href="https://drive.google.com/drive/folders/1eZKyGuaBe5RjoEBWfLVNeY5H2x6znu_g?usp=drive_link" target="_blank"><span class="dot"></span>Laporan Stock Kain</a></li>
-
               <li><a href="https://drive.google.com/drive/folders/1mM4UlQic8_Nsw1wK5he2Lqi-Ajvki3vv?usp=drive_link" target="_blank"><span class="dot"></span>Laporan Penjualan Kain</a></li>
-
               <li><a href="https://drive.google.com/drive/folders/1jftLWLVkbw1Vnj5xb_t35AzqWgmAe_F5?usp=drive_link" target="_blank"><span class="dot"></span>Laporan Penjualan Limbah</a></li>
-
               <li><a href="https://drive.google.com/drive/folders/199Pn8k5FBP0CJEEaSVD_sWCCjz_VGuQb?usp=drive_link" target="_blank"><span class="dot"></span>SO &amp; THR</a></li>
-
             </ul>
           </div>
         </div>
@@ -608,7 +612,7 @@
        FOOTER
   ══════════════════════ -->
   <footer class="footer">
-    CV. AATEX &nbsp;·&nbsp; Internal Use Only
+    CV. AATEX &nbsp;·&nbsp; Rahasia Kerajaan (Internal Only)
   </footer>
 
 
@@ -620,14 +624,22 @@
 ════════════════════════════════════════ -->
 <script>
 
-  /* ── THEME TOGGLE ── */
+  /* ── THEME TOGGLE (Age Advancement) ── */
   function toggleTheme() {
     const html  = document.documentElement;
     const label = document.getElementById('themeLabel');
-    const isDark = html.getAttribute('data-theme') === 'dark';
+    const icon  = document.getElementById('themeIcon');
+    const isImperial = html.getAttribute('data-theme') === 'imperial';
 
-    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-    label.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+    if (isImperial) {
+      html.setAttribute('data-theme', 'dark-age');
+      label.textContent = 'Dark Age';
+      icon.textContent = '⚔️';
+    } else {
+      html.setAttribute('data-theme', 'imperial');
+      label.textContent = 'Imperial Age';
+      icon.textContent = '🏰';
+    }
   }
 
 
